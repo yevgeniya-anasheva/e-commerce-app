@@ -1,0 +1,212 @@
+body {
+    background-color: #f3d7e6;
+    font-family: 'Noto Sans', sans-serif;
+    margin-top: 0;
+}
+h1 {
+    clear: both;
+    margin: 1%;
+    text-align: center;
+    color: #550049;
+}
+header {
+    background-color: #550049;
+}
+nav {
+    background-color: #550049;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 10px;
+}
+nav ul {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding-left: 10%;
+    position: relative;
+    bottom: 60px;
+}
+nav li {
+    margin-right: 10%;
+    display: inline;
+}
+#promo {
+    max-height: 300px;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: .5%;
+}
+#gradient {
+    background-image: linear-gradient(#ebc2e5, #f3d7e6);
+    position: relative;
+    top: -15px;
+    height: 50px;
+}
+.price {
+    color: rgb(117, 29, 29);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.element a {
+    color: #550049;
+}
+.element img, .imgbox img {
+    width: 80%;
+    height: 100%;
+  }
+.imgbox, .element {
+    height: 280px;
+    width: 250px;
+    margin: auto;
+    border-radius: 10px;
+    padding: 3rem 3rem 5rem;
+    text-align: center;
+    background-color: white;
+}
+.productsgrid, .categories, .bestsellers {
+    margin: 2% auto 0;
+    max-width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
+}
+form {
+    border-radius: 10px;
+    max-width: 15%;
+    margin: 3% auto 0;
+    padding: 0 2% 1%;
+    font-weight: bold;
+    background-color: white;
+}
+input, label {
+    font-size: 0.9rem;
+    width: 100%;
+    margin: 2% auto;
+}
+.formspace {
+    height: 30rem;
+}
+.formheading {
+    font-size: 1.5rem;
+}
+.error {
+    display: inline;
+    color: red;
+}
+.dashboard {
+    text-align: center;
+    margin: 4rem auto 15rem;
+    background-color: white;
+    border-radius: 15px;
+    padding: 5rem;
+    width: 70%;
+    font-weight: bold;
+}
+footer {
+    clear: both;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    background-color: #550049;
+    border-radius: 10px;
+}
+ul {
+    padding: 1%;
+    text-align: center;
+    list-style-type: none;
+}
+footer li {
+    margin-right: 6%;
+    display: inline;
+}
+a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+a:hover {
+    color: pink;
+}
+@media screen and (max-width:1350px) {
+    nav li, footer li {
+        margin-right: 58px;
+    }
+    form {
+        max-width: 20%;
+    }
+    .productsgrid, .categories, .bestsellers {
+        max-width: 90%;
+        grid-template-columns: repeat(3, minmax(300px, 1fr));
+    }
+    .imgbox, .element {
+        height: 14rem;
+        width: 13rem;
+    }
+}
+@media screen and (max-width:1050px) {
+    header img {
+        width: 20%;
+    }
+    nav li, footer li {
+        margin-right: 50px;
+        font-size: 0.8em;
+    }
+    form {
+        max-width: 30%;
+        padding: 0 3% 1%;
+    }
+    .productsgrid, .categories, .bestsellers {
+        grid-template-columns: repeat(2, 1fr);
+        width: 70%;
+    }
+}
+@media screen and (max-width:850px) {
+    .productsgrid, .categories, .bestsellers {
+        width: 90%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    nav li, footer li {
+        margin-right: 25px;
+    }
+    .formspace {
+        height: 550px;
+    }
+}
+@media screen and (max-width:700px) {
+    body {
+        margin: 0;
+    }
+    #promo {
+        height: 100px;
+        width: 100%;
+    }
+    nav li, footer li {
+        display: block;
+        margin-bottom: 1%;
+    }
+    nav ul {
+        bottom: 60%;
+    }
+    nav {
+        height: 80px;
+    }
+    form {
+        max-width: 45%;
+        margin: 4rem auto 0;
+        padding: 0 2rem 1rem;
+    }
+    .formspace {
+        height: 30rem;
+    }
+    .imgbox, .element {
+        width: 55%;
+        margin: 0 auto;
+    }
+    .productsgrid, .categories, .bestsellers {
+        display: grid;
+        width: 80%;
+        grid-template-columns: repeat(1, minmax(150px, 1fr));
+        grid-gap: 1rem;
+        float: none;
+    }
+
+}

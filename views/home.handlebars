@@ -1,0 +1,34 @@
+<section class = "promotion">
+    <a href="/"></a><img src="img/promotion.jpg" alt="promotional banner" id="promo"></a>
+    <div id = "gradient"></div>
+</section>
+
+<h1>Categories</h1>
+<section class = "categories">
+    {{#each categories}}
+    <div class = "element">
+        <a href="/"><img src="{{this.img}}" alt="img"></a>
+        <p>{{this.title}}</p>
+    </div>
+    {{/each}}
+</section>
+
+<h1>Bestsellers</h1>
+<section class = "bestsellers">        
+    <div class = "element">
+        <a href="/"><img src="img/img5.jpg" alt="sketchbook"></a>
+        <p>Strathmore Art Sketchbook</p>
+    </div>
+    <div class = "element">
+        <a href="/"><img src="img/img6.jpg" alt="arteza"></a>
+        <p>Arteza Brush Pens</p>
+    </div>
+    <div class = "element">
+        <a href="/"><img src="img/img7.jpg" alt="planner"></a>
+        <p>Orange Circle Planner</p>
+    </div>
+    <div class = "element">
+        <a href="/"><img src="img/img8.jpg" alt="brushpen"></a>
+        <p>Dual brush pens</p>
+    </div>
+</section>

@@ -1,0 +1,23 @@
+<section class = "formspace">
+
+    <form action="/user/registration" method="POST"> <br>
+    <span class="formheading">Create Account</span><br><br>
+    <label for="name">Your Name</label> <br>
+    <input type="text" id = "name" name = "name" value="{{form.nameholder}}"> <br>
+    <div class="error">{{errors.[0]}}</div> <br>
+
+    <label for="email">Email</label> <br>
+    <input type="email" id = "email" name = "email" value="{{form.emailholder}}"> <br>
+    <div class="error">{{errors.[1]}}</div> <br>
+    
+    <label for="password">Password</label> <br>
+    <input type="password" id = "password" placeholder="At least 6 characters" name = "password"> <br>
+    <div class="error">{{errors.[2]}}</div> <br>
+
+    <label for="password2">Repeat your password</label> <br>
+    <input type="password" id = "password2" name = "password2"> <br> <br>
+    <div class="error">{{errors.[3]}}</div>
+
+    <input type="submit" value = "Create your account">
+</form>
+</section>

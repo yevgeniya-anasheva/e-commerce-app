@@ -1,0 +1,27 @@
+<section class = "formspace">
+
+    <form action="/product/add" method="POST"> <br>
+    <span class="formheading">Create a product</span><br><br>
+    <label for="name">Product Name</label> <br>
+    <input type="text" id = "name" name = "name" value="{{form.nameholder}}"> <br>
+    <div class="error">{{errors.[0]}}</div> <br>
+
+    <label for="price">Price</label> <br>
+    <input type="text" id = "price" name = "price" value="{{form.emailholder}}"> <br>
+    <div class="error">{{errors.[1]}}</div> <br>
+    
+    <label for="description">Description</label> <br>
+    <input type="text" id = "description" placeholder="At least 6 characters" name = "description"> <br>
+    <div class="error">{{errors.[2]}}</div> <br>
+
+    <label for="category">Category</label> <br>
+    <input type="text" id = "category" name = "category"> <br> <br>
+    <div class="error">{{errors.[3]}}</div>
+
+    <label for="quantity">Quantity</label> <br>
+    <input type="text" id = "quantity" name = "quantity"> <br> <br>
+    <div class="error">{{errors.[4]}}</div>
+
+    <input type="submit" value = "Create a product">
+</form>
+</section>
