@@ -26,10 +26,10 @@ const productSchema = new Schema({
     },
     bestseller:
     {
-        type: Boolean,
-        default: false
+        type: String,
+        default: 'true'
     },
-    img: 
+    productImg: 
     {
         type: String
     },
@@ -41,5 +41,5 @@ const productSchema = new Schema({
 
 //for every schema created (per collection), model must be created.
 //the model allows CRUD operations
-const productModel = mongoose.model('User', productSchema);
+const productModel = mongoose.model('Product', productSchema);
 module.exports = productModel;

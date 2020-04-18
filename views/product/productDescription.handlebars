@@ -1,0 +1,14 @@
+<section class="productsdescription">
+    <img src="/img/{{productImg}}" alt="{{name}}">
+    <div class = "rightcolumn">
+        <h2>{{name}}</h2> <br>
+        Price: <span class="price">{{price}}</span> <br>
+        {{description}} <br>
+        <form action="/products/addToCart" method="POST">
+            <label for="quantity">Quantity</label> <br>
+            <input type="number" name="quantity" min='1' max='{{quantity}}' value="1"> <br>
+
+            <input type="submit" value="Add to cart">
+        </form>
+    </div>
+</section>

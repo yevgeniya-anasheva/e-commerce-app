@@ -52,10 +52,10 @@ nav li {
 }
 .element img, .imgbox img {
     width: 80%;
-    height: 100%;
+    height: 90%;
   }
 .imgbox, .element {
-    height: 280px;
+    height: 320px;
     width: 250px;
     margin: auto;
     border-radius: 10px;
@@ -69,6 +69,29 @@ nav li {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 3rem;
+}
+.dashboard a, .adminlinks a {
+    color: black;
+}
+.rightcolumn {
+    position: absolute;
+    right: 250px;
+    top: 200px;
+}
+.productsdescription {
+    background-color: white;
+    border-radius: 10px;
+    margin: 50px auto;
+    padding: 50px;
+    max-width: 80%;
+}
+.productsdescription img {
+    width: 350px;
+    height: 420px;
+}
+.productsdescription form {
+    padding: 0;
+    max-width: 100%;
 }
 form {
     border-radius: 10px;
@@ -84,7 +107,7 @@ input, label {
     margin: 2% auto;
 }
 .formspace {
-    height: 30rem;
+    height: 60rem;
 }
 .formheading {
     font-size: 1.5rem;

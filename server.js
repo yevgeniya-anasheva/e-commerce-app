@@ -3,12 +3,27 @@ const exphbs = require("express-handlebars");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const fileUpload = require("express-fileupload");
 
 require('dotenv').config({path: "./config/keys.env"});
 const app = express();
+//getting rid of ensureIndex deprecation warning
+mongoose.set('useCreateIndex', true);
 
 //registering handlebars as a template engine
-app.engine("handlebars", exphbs());
+app.engine("handlebars", exphbs({
+    helpers: {
+        if_admin : function(str1, str2, options) {
+            console.log(`First: ${str1} and second: ${str2}`);
+            if(str1 == str2) {
+                return options.fn(this);
+            } else {
+                return options.inverse(this);
+            }
+        }
+    }
+
+}));
 app.set("view engine", "handlebars");
 
 app.use(express.static("public"));
@@ -26,6 +41,25 @@ app.use((req,res,next)=>{
     res.locals.user= req.session.userInfo;
     next();
 })
+/*
+    This is to allow specific forms and/or links that were submitted/pressed
+    to send PUT and DELETE request respectively!!!!!!!
+*/
+app.use((req,res,next)=>{
+
+    if(req.query.method=="PUT")
+    {
+        req.method="PUT"
+    }
+    else if(req.query.method=="DELETE")
+    {
+        req.method="DELETE"
+    }
+    next();
+})
+
+//attach fileupload middleware to express
+app.use(fileUpload());
 
 //load controllers
 const userController = require("./controllers/user");

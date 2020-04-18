@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router();
 
 const userModel = require("../models/user");
-const path = require("path");
 const bcrypt = require("bcryptjs");
 const isLoggedIn = require("../middleware/authentication");
 const loadDashboard = require("../middleware/authorization");
@@ -98,7 +97,6 @@ router.post("/registration",(req,res)=>{
             sgMail.send(msg)
             .then(()=>
             {
-                //res.redirect("login");
                 res.redirect("/dashboard");
             })
             .catch(err=>{

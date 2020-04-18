@@ -1,0 +1,11 @@
+<section class = "products">
+    
+    <div class = "productsgrid">
+        {{#each data}}
+        <div class = "imgbox">
+            <a href="/products/description/{{this.id}}"><img src="/img/{{this.productImg}}" alt="{{this.name}}"> </a>
+            <p>{{this.name}} <br> <span class="price">{{this.price}} </span><br></p>
+        </div>
+        {{/each}}
+    </div>
+</section>

@@ -1,0 +1,16 @@
+<section class = "products">
+    
+    <div class = "productsgrid">
+        {{#each data}}
+        <div class = "imgbox">
+            <div class="adminlinks">
+                <a href="/products/edit/{{this.id}}">Edit</a>
+                <a href="/products/delete/{{this.id}}?method=DELETE" class="edit-delete-button">Delete</a>
+            </div>
+            
+            <img src="/img/{{this.productImg}}" alt="product"> 
+            <p>{{this.name}} <br> <span class="price">{{this.price}} </span><br></p>
+        </div>
+        {{/each}}
+    </div>
+</section>

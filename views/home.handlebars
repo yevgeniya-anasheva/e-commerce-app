@@ -14,21 +14,11 @@
 </section>
 
 <h1>Bestsellers</h1>
-<section class = "bestsellers">        
-    <div class = "element">
-        <a href="/"><img src="img/img5.jpg" alt="sketchbook"></a>
-        <p>Strathmore Art Sketchbook</p>
-    </div>
-    <div class = "element">
-        <a href="/"><img src="img/img6.jpg" alt="arteza"></a>
-        <p>Arteza Brush Pens</p>
-    </div>
-    <div class = "element">
-        <a href="/"><img src="img/img7.jpg" alt="planner"></a>
-        <p>Orange Circle Planner</p>
-    </div>
-    <div class = "element">
-        <a href="/"><img src="img/img8.jpg" alt="brushpen"></a>
-        <p>Dual brush pens</p>
-    </div>
+<section class = "bestsellers">  
+    {{#each data}}      
+        <div class = "element">
+        <a href="/products/description/{{this.id}}"><img src="img/{{this.productImg}}" alt="{{this.name}}"></a>
+        <p>{{this.name}}</p>
+        </div>
+    {{/each}}
 </section>
