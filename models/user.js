@@ -32,7 +32,7 @@ userSchema.pre("save",function(next)
 {
 
     //creates a string of random letters
-    bcrypt.genSalt(10)
+    bcrypt.genSalt(12)
     .then((salt)=>{
         //hashing the salt
         bcrypt.hash(this.password,salt)
