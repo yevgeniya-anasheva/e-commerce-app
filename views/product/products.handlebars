@@ -1,5 +1,15 @@
 <section class = "products">
-    
+    <section class = "cart">
+        <form action="/products/filter" method="POST">
+            <select name="products">
+            {{#each categories}}
+                <option value="{{this}}" {{#selected}}selected="selected"{{/selected}}>{{this}}</option>
+            {{/each}}
+            <input type="submit" value="Search">
+        </select>
+        </form>
+        
+    </section>
     <div class = "productsgrid">
         {{#each data}}
         <div class = "imgbox">
@@ -7,5 +17,6 @@
             <p>{{this.name}} <br> <span class="price">{{this.price}} </span><br></p>
         </div>
         {{/each}}
+
     </div>
 </section>

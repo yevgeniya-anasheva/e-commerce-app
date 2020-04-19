@@ -8,7 +8,6 @@ const isLoggedIn = require("../middleware/authentication");
 const isAdmin = require("../middleware/admin");
 const session = require('express-session');
 const productModel = require("../models/product");
-const userModel = require("../models/user");
 const cartModel = require("../models/cart");
 
 router.get("/all", (req,res)=>{
@@ -26,10 +25,17 @@ router.get("/all", (req,res)=>{
                 productImg: product.productImg
             }
         });
-
+        //filter out categories, leaving only unique
+        const categories = [];
+        filteredProducts.forEach((product)=>{
+            if(!categories.find(prod=>prod===product.category)){
+                categories.push("" + product.category);
+            }
+        });
         res.render("product/products", {
             title: "Products",
-            data: filteredProducts
+            data: filteredProducts,
+            categories
         });
     })
     .catch((err)=>{
@@ -239,18 +245,17 @@ router.post("/addToCart", isLoggedIn, (req,res)=>{
                 cart.products.push({ _id, quantity, name, price });
             }
             var totals = products[index].quantity * products[index].price;
-            cart.save()
+            cart.updateOne({userId: req.session.userInfo._id}, {
+                products: [{ _id, quantity, name, price }]
+            })
             .then(()=>{
-                res.render("user/cart",{
-                    userId,
-                    products: [{ _id, quantity, name, price }],
-                    totals
-                });
+                res.redirect("user/cart");
             })
             .catch(err=>{
-                err=>console.log(`Error happened when updating cart: ${err}`);
+                    err=>console.log(`Error happened when updating cart: ${err}`);
             });
         } else {
+            //create new cart
             const newCart = 
             {
                 userId,
@@ -259,7 +264,7 @@ router.post("/addToCart", isLoggedIn, (req,res)=>{
             //create an instance of type cartModel
             var cart2 = new cartModel(newCart);
             var totals = newCart.products[0].quantity * newCart.products[0].price;
-
+            //create a new cart in the database
             cart2.save()
             .then(()=>{
                 res.render("user/cart",{
@@ -276,4 +281,38 @@ router.post("/addToCart", isLoggedIn, (req,res)=>{
     });
     
 });
+
+router.post("/filter", (req,res)=>{
+
+    productModel.find({category: req.body.products})
+    .then((allproducts)=>{
+        const filteredProducts = allproducts.map(product=>{
+            return {
+                id: product._id,
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                category: product.category,
+                quantity: product.quantity,
+                productImg: product.productImg
+            }
+        });
+        //filter out categories, leaving only unique
+        const categories = [];
+        filteredProducts.forEach((product)=>{
+            if(!categories.find(prod=>prod===product.category)){
+                categories.push("" + product.category);
+            }
+        });
+        res.render("product/products", {
+            title: `${req.body.products}`,
+            data: filteredProducts,
+            categories
+        });
+    })
+    .catch((err)=>{
+        console.log(`Error happened when pulling from the database: ${err}`);
+    });
+});
+
 module.exports=router;
