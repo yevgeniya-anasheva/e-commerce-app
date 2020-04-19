@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const userModel = require("../models/user");
+const cartModel = require("../models/cart");
 const bcrypt = require("bcryptjs");
 const isLoggedIn = require("../middleware/authentication");
 const loadDashboard = require("../middleware/authorization");
@@ -192,7 +193,12 @@ router.post("/login", (req,res)=> {
     }
 });
 
-router.get("/userdashboard",isLoggedIn,loadDashboard);
+router.get("/userdashboard",isLoggedIn,loadDashboard,(req,res)=>{
+
+    res.render("user/userDashboard",{
+        cart
+    });
+})
 
 router.get("/adminDashboard",isLoggedIn,(req,res)=>{
     res.render("user/adminDashboard");
@@ -201,6 +207,71 @@ router.get("/adminDashboard",isLoggedIn,(req,res)=>{
 router.get("/logout",(req,res)=>{
     req.session.destroy(); 
     res.redirect("login");
+});
+
+router.get("/cart/:id", isLoggedIn, (req,res)=>{
+    cartModel.findOne({userId: req.params.id})
+    .then((cart)=>{
+        let totals = 0;
+        cart.products.forEach((product)=>totals += product.price * product.quantity);
+        const {products} = cart;
+
+        let userId = req.session.userInfo._id;
+        res.render("user/cart",{
+            userId,
+            products,
+            totals
+        });
+    })
+    .catch((err)=>{
+        console.log(`User controller: Error happened when pulling cart from database: ${err}`);
+    });
+    
+});
+
+router.get("/checkout/:id", isLoggedIn, (req,res)=> {
+
+    cartModel.findOne({ userId: req.params.id })
+    .then((cart)=>{
+        const {name, email} = req.session.userInfo;
+        const {products} = cart;
+
+        let productData = "";
+        products.forEach((product)=>{
+            product.price = product.price * product.quantity;
+            productData += `${product.name}, Quantity: ${product.quantity}, Price Total: ${product.price}`;
+        });
+
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+        const msg = {
+        to: `${email}`,
+        from: `test@example.com`,
+        subject: 'Order confirmation',
+        text: 'Congratulations! Your order is confirmed',
+        html: `<strong>Jen's Art Supplies</strong> 
+               <br> Hello ${name}! Thank you for your order of: <br>
+               ${productData}`,
+        };
+        sgMail.send(msg)
+        .then(()=>
+        {
+            cartModel.deleteOne({userId:req.params.id})
+            .then(()=>{
+                res.redirect("/user/confirmation");
+            })
+            .catch(err=>console.log(`Error happened when deleting cart :${err}`));
+            
+        })
+        .catch(err=>{
+            console.log(`Error when sending an email during checkout: ${err}`);
+        })
+    })
+    .catch(err=>console.log(`Error when checking out: ${err}`));
+});
+
+router.get("/confirmation", isLoggedIn, (req,res)=> {
+    res.render("user/confirmation");
 });
 
 module.exports=router;

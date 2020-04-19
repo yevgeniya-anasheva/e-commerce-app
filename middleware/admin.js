@@ -4,7 +4,6 @@ const isAdmin = (req,res,next)=>{
     {
         next(); //going to the next middleware function
     }
-    
     else
     {
         res.redirect("/");

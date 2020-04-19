@@ -3,12 +3,13 @@ const router = express.Router();
 
 router.use(express.static("public"));
 
-const productBestsellers = require("../models/bestsellers");
+const path = require("path");
 const isLoggedIn = require("../middleware/authentication");
 const isAdmin = require("../middleware/admin");
+const session = require('express-session');
 const productModel = require("../models/product");
 const userModel = require("../models/user");
-const path = require("path");
+const cartModel = require("../models/cart");
 
 router.get("/all", (req,res)=>{
 
@@ -218,23 +219,61 @@ router.get("/description/:id", (req,res)=>{
 });
 
 router.post("/addToCart", isLoggedIn, (req,res)=>{
-    
-    const product =
-    {
-        name:  req.body.name,
-        price: req.body.price,
-        description:    req.body.description,
-        category:    req.body.category,
-        quantity: req.body.quantity,
-        bestseller:   req.body.bestseller,
-        productImg: req.files.productImg.name
-    }
 
-    userModel.updateOne({_id:req.session.userInfo._id},{cart: product})
-    .then(()=>{
-        res.redirect("/products/alladmin");
+    //note: _id is a product id
+    const { name, quantity, price, _id } = req.body;
+    let userId = req.session.userInfo._id;
+
+    cartModel.findById(userId)
+    .then(cart=>{
+        //cart was already created for this user
+        if(cart) {
+            let index = cart.products.findIndex(p => p._id == _id); 
+            //product already exists, updating the quantity   
+            if(index > -1) {
+                let product = cart.products[index];
+                product.quantity = quantity;
+                cart.products[index] = product;
+            } else {
+                //push a new item if the same product doesn't exist
+                cart.products.push({ _id, quantity, name, price });
+            }
+            var totals = products[index].quantity * products[index].price;
+            cart.save()
+            .then(()=>{
+                res.render("user/cart",{
+                    userId,
+                    products: [{ _id, quantity, name, price }],
+                    totals
+                });
+            })
+            .catch(err=>{
+                err=>console.log(`Error happened when updating cart: ${err}`);
+            });
+        } else {
+            const newCart = 
+            {
+                userId,
+                products: [{ _id, quantity, name, price }]
+            };
+            //create an instance of type cartModel
+            var cart2 = new cartModel(newCart);
+            var totals = newCart.products[0].quantity * newCart.products[0].price;
+
+            cart2.save()
+            .then(()=>{
+                res.render("user/cart",{
+                    userId,
+                    products: [{ _id, quantity, name, price }],
+                    totals
+                });
+            })
+            .catch(err=>console.log(`Error happened when creating new cart: ${err}`));
+        }
     })
-    .catch(err=>console.log(`Error happened when updating data in the database :${err}`));
+    .catch(err=>{
+        console.log(`Error retrieving cart data ${err}`);
+    });
+    
 });
-
 module.exports=router;

@@ -70,7 +70,7 @@ nav li {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 3rem;
 }
-.dashboard a, .adminlinks a {
+.dashboard a, .adminlinks a, .cart a {
     color: black;
 }
 .rightcolumn {
@@ -78,7 +78,7 @@ nav li {
     right: 250px;
     top: 200px;
 }
-.productsdescription {
+.productsdescription, .cart {
     background-color: white;
     border-radius: 10px;
     margin: 50px auto;

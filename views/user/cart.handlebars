@@ -1,0 +1,14 @@
+<section class="cart">
+    <h2>Products in your cart, {{user.name}}: </h2><br>
+
+    {{#each products}}
+        Name: {{this.name}} <br>
+        Price: {{this.price}} <br>
+        Quantity: {{this.quantity}} <br>
+    {{/each}} <br> <br>
+
+    Order total: {{totals}} <br>
+
+    <b><a href="/user/checkout/{{user._id}}">Place order</a></b>
+
+</section>

@@ -12,6 +12,7 @@ mongoose.set('useCreateIndex', true);
 
 //registering handlebars as a template engine
 app.engine("handlebars", exphbs({
+    //to be developed...
     helpers: {
         if_admin : function(str1, str2, options) {
             console.log(`First: ${str1} and second: ${str2}`);
@@ -22,7 +23,6 @@ app.engine("handlebars", exphbs({
             }
         }
     }
-
 }));
 app.set("view engine", "handlebars");
 

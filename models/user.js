@@ -21,11 +21,6 @@ const userSchema = new Schema({
         type:String,
         default:"user"
     },
-    cart:
-    {
-        type: Array,
-        required: false
-    },
     dateCreated: {
         type: Date,
         default: Date.now()
