@@ -91,8 +91,7 @@ router.get("/edit/:id",(req,res)=>{
 
 router.put("/update/:id",(req,res)=>{
 
-    const product =
-    {
+    const product = {
         name:  req.body.name,
         price: req.body.price,
         description:    req.body.description,
@@ -139,8 +138,7 @@ router.post("/add", isLoggedIn, isAdmin, (req,res)=>{
     if(quantity=="")
         erroMessages[4] = "You must enter quantity";
 
-    if(errorMessages.length > 0)
-    {
+    if(errorMessages.length > 0) {
         let form = {
             nameholder: req.body.name,
             priceholder: req.body.price,
@@ -153,11 +151,8 @@ router.post("/add", isLoggedIn, isAdmin, (req,res)=>{
             errors : errorMessages,
             form: form
         });
-    }
-    else
-    {
-        const newProduct = 
-        {
+    } else {
+        const newProduct = {
             name: req.body.name,
             price: req.body.price,
             description: req.body.description,
@@ -173,8 +168,7 @@ router.post("/add", isLoggedIn, isAdmin, (req,res)=>{
             console.log(`Extension = ${req.files.productImg.mimetype}`);
 
             if(req.files.productImg.mimetype == "image/jpeg" || req.files.productImg.mimetype == "image/png" ||
-                req.files.productImg.mimetype == "image/gif" || path.parse(req.files.productImg.name).ext == "image/jpg")
-            {
+                req.files.productImg.mimetype == "image/gif" || path.parse(req.files.productImg.name).ext == "image/jpg") {
                 req.files.productImg.name = `img${product._id}${path.parse(req.files.productImg.name).ext}`;
                 req.files.productImg.mv(`public/img/${req.files.productImg.name}`)
                 .then(()=>{
@@ -191,8 +185,7 @@ router.post("/add", isLoggedIn, isAdmin, (req,res)=>{
                 .catch((err)=>{
                     console.log(`Error happened when uploading the picture: ${err}`);
                 })
-            }
-            else {
+            } else {
                 console.log(`Error: file uploaded is not an image`);
             }
             
