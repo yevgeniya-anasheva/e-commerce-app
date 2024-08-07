@@ -122,19 +122,16 @@ router.post("/login", (req, res) => {
     if(password=="")
         errorMessages[1] = "You must enter password";
     
-    if(errorMessages.length > 0)
-    {
+    if(errorMessages.length > 0) {
         let form = { emailholder: req.body.email };
         res.render("user/login",{
             title : "Login Page",
             errors : errorMessages,
             form: form
         });
-    }
-    else
-    {
+    } else {
         userModel.findOne({email:req.body.email})
-        .then(user=>{
+        .then(user => {
 
             const errorsLogin= [];
             //email is not found
